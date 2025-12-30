@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(useMaterial3: false), //색깔 변경(검 => 파)
+      theme: ThemeData(useMaterial3: false), //색깔 변경(검 => 파).
       debugShowCheckedModeBanner: false,
       // home: LoginPage(),
       // 실습할 때 이거로 바꿔치기
