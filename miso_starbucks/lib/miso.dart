@@ -57,7 +57,74 @@ class MisoFirstPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: Text("Miso 첫 번째 페이지")));
+    return Scaffold(
+      backgroundColor: misoPrimaryColor,
+      body: SafeArea(
+        child: SizedBox(
+          width: double.infinity,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center, // 위 아래 정렬?
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                "대한민국 1등 홈서비스 \n 미소를 만나보세요!",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+
+              const SizedBox(height: 40),
+
+              ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 40,
+                    vertical: 14,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30), // radius
+                  ),
+                ),
+                child: Text(
+                  "+ 예약하기",
+                  style: TextStyle(
+                    color: misoPrimaryColor,
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 120),
+
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 28,
+                  vertical: 12,
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.25), // 투명도
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: const Text(
+                  '서비스 상세정보',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
 
