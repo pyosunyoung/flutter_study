@@ -67,7 +67,8 @@ class MisoFirstPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                "대한민국 1등 홈서비스 \n 미소를 만나보세요!",
+                "안녕하세요 fork 테스트!",
+                // "대한민국 1등 홈서비스 \n 미소를 만나보세요!",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
