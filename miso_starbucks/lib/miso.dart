@@ -67,8 +67,7 @@ class MisoFirstPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                "안녕하세요 fork 테스트!",
-                // "대한민국 1등 홈서비스 \n 미소를 만나보세요!",
+                "대한민국 1등 홈서비스 \n 미소를 만나보세요!",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
@@ -135,9 +134,92 @@ class MisoSecondPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: Text("Miso 두 번째 페이지")));
+    return Scaffold(
+      body: SafeArea(
+        child: SizedBox(
+          width: double.infinity,
+          child: Stack(
+            children: [
+              Padding(
+                padding: EdgeInsetsGeometry.symmetric(horizontal: 24),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const SizedBox(height: 120),
+                    Text(
+                      "예약내역",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30,
+                      ),
+                    ),
+                    const SizedBox(height: 120),
+                    Row(
+                      children: [
+                        Icon(Icons.error, color: misoPrimaryColor),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              "예약된 서비스가 아직 없어요. 지금 예약해보세요!",
+                              style: TextStyle(fontSize: 110),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Divider(color: Colors.grey),
+                  ],
+                ),
+              ),
+
+              /// 예약하기
+              Positioned(
+                bottom: 18,
+                left: 24,
+                right: 24,
+                child: GestureDetector(
+                  onTap: () {
+                    print("예약하기 클릭 됨");
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    height: 58,
+                    color: misoPrimaryColor,
+                    alignment: Alignment.center,
+                    child: Text(
+                      "예약하기",
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
+
+// 1️⃣ GestureDetector는 어떤 용도인가?
+// ✔️ 역할
+
+// GestureDetector는 사용자의 제스처(터치)를 감지하는 위젯이에요.
+
+// 대표적으로 감지 가능한 것들:
+
+// onTap : 클릭
+
+// onDoubleTap : 더블 클릭
+
+// onLongPress : 길게 누르기
+
+// onPanUpdate : 드래그
+
+// onScale : 핀치 줌
 
 /// 세 번째 페이지
 class MisoThirdPage extends StatelessWidget {
@@ -149,7 +231,115 @@ class MisoThirdPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: Text("Miso 세 번째 페이지")));
+    return Scaffold(
+      backgroundColor: misoPrimaryColor,
+      body: SafeArea(
+        child: SizedBox(
+          width: double.infinity,
+          child: Stack(
+            alignment: AlignmentGeometry.center,
+            children: [
+              Positioned(
+                bottom: 0,
+
+                child: Container(
+                  constraints: BoxConstraints(maxWidth: 400),
+                  child: Image.network(backgroundImgUrl),
+                ),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+
+                children: [
+                  const SizedBox(height: 64),
+                  RichText(
+                    textAlign: TextAlign.center,
+                    text: TextSpan(
+                      // 공통 스타일
+                      style: TextStyle(
+                        fontSize: 28,
+                        height: 1.5, // 줄간격 한 줄의 1.5배
+                        color: Colors.white,
+                      ),
+                      children: [
+                        TextSpan(text: "친구 추천할 때마다\n"),
+                        TextSpan(
+                          text: "1000원",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        TextSpan(text: "할인 쿠폰 지급!"),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 64),
+
+                  GestureDetector(
+                    onTap: () {
+                      print("자세히 보기");
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "자세히 보기",
+                          style: TextStyle(color: Colors.white, fontSize: 18),
+                        ),
+                        Icon(Icons.chevron_right, color: Colors.white),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+
+              /// 예약하기
+              Positioned(
+                bottom: 42,
+
+                child: GestureDetector(
+                  onTap: () {
+                    print("친구 추천하기 클릭 됨");
+                  },
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 24,
+                      vertical: 16,
+                    ), //horizontal : width, vertical: height
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(64),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withValues(alpha: 0.4),
+                          offset: Offset(0, 5),
+                          spreadRadius: 1,
+                          blurRadius: 12,
+                        ),
+                      ],
+                    ),
+
+                    alignment: Alignment.center,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.redeem, color: misoPrimaryColor),
+                        SizedBox(width: 8),
+                        Text(
+                          "친구 추천하기",
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: misoPrimaryColor,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
 
