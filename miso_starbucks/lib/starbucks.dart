@@ -461,7 +461,73 @@ class StarbucksSecondPage extends StatelessWidget {
           ),
         ],
       ),
-      body: Column(),
+      body: Column(
+        children: [
+          /// Card
+          /// Expanded는 child 요소를 렌더링 영역의 최대 사이즈까지 확장시켜 주는 위젯임.
+          Expanded(
+            // Tip : 스크롤하는데 스냅이 걸려서 해당 항목이 화면 중앙에 보이는 경우 PageView 위젯을 사용합니다.
+            child: PageView.builder(
+              controller: PageController(
+                viewportFraction: 0.85,
+              ), // 옆에 항목 살짝 보이게
+              itemCount: 10,
+              itemBuilder: (context, index) {
+                return Container(
+                  child: Image.network(cardImgUrl),
+                  margin: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(2),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.05),
+                        // 광원의 위치를 중심(0, 0)보다 위쪽(0, 5)
+                        offset: Offset(0, 5),
+                        spreadRadius: 1,
+                        blurRadius: 6,
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
+
+          /// Coupon & e-Gift Item
+          Container(
+            height: 72,
+            color: Colors.white,
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextButton(
+                    onPressed: () {
+                      print("Coupon 선택 됨");
+                    },
+                    child: Text(
+                      "Coupon",
+                      style: TextStyle(color: Colors.black, fontSize: 18),
+                    ),
+                  ),
+                ),
+                Container(width: 1, height: 12, color: Colors.grey),
+                Expanded(
+                  child: TextButton(
+                    onPressed: () {
+                      print("e-Gift Item 선택 됨");
+                    },
+                    child: Text(
+                      "e-Gift Item",
+                      style: TextStyle(color: Colors.black, fontSize: 18),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
