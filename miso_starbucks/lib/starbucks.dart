@@ -241,6 +241,7 @@ class StarbucksFirstPage extends StatelessWidget {
                       padding: const EdgeInsets.only(left: 24, right: 12),
                       child: Row(
                         children: [
+                          /// What's New
                           GestureDetector(
                             onTap: () => print("What's New 클릭 됨"),
                             child: Row(
@@ -255,13 +256,178 @@ class StarbucksFirstPage extends StatelessWidget {
                             ),
                           ),
                           SizedBox(width: 32),
+
+                          GestureDetector(
+                            onTap: () => print("Coupon 클릭 됨"),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.confirmation_num_outlined,
+                                  color: Colors.grey,
+                                ),
+                                SizedBox(width: 8),
+                                Text("Coupon", style: TextStyle(fontSize: 18)),
+                              ],
+                            ),
+                          ),
+                          Spacer(),
+                          Stack(
+                            children: [
+                              Icon(Icons.notifications_outlined),
+                              Positioned(
+                                top: 2,
+                                right: 2,
+                                child: CircleAvatar(
+                                  radius: 4,
+                                  backgroundColor: starbucksPrimaryColor,
+                                ),
+                              ),
+                            ],
+                          ),
                         ],
                       ),
                     ),
                   ),
                 ),
               ),
+
+              /// Tip : CustomScrollView 안에서는 모든 첫 번째 위젯이 Sliver로 구현 되어야합니다.
+              /// SliverToBoxAdapter는 Container 같은 위젯이라고 보시면 됩니다.
+              SliverToBoxAdapter(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsetsGeometry.symmetric(
+                        horizontal: 12,
+                        vertical: 18,
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadiusGeometry.circular(8),
+                        child: Image.network(frequencyImg),
+                      ),
+                    ),
+                    SizedBox(height: 32),
+
+                    ///추천 메뉴 Title
+                    Padding(
+                      padding: EdgeInsetsGeometry.symmetric(horizontal: 24),
+                      child: RichText(
+                        textAlign: TextAlign.center,
+                        text: TextSpan(
+                          // 공통 스타일
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 28,
+                            color: Colors.black,
+                          ),
+                          children: [
+                            TextSpan(
+                              text: "표선영",
+                              style: TextStyle(color: starbucksAccentColor),
+                            ),
+                            TextSpan(text: "님을 위한 추천 메뉴"),
+                          ],
+                        ),
+                      ),
+                    ),
+
+                    SizedBox(height: 32),
+
+                    /// 추천 메뉴 horizontal list view
+                    SizedBox(
+                      height: 150, // 높이를 가져야 ListView를 Column 안에 넣을 수 있습니다.
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: 100,
+                        itemBuilder: (context, index) {
+                          final menu =
+                              recommendMenu[index % recommendMenu.length];
+                          final name = menu["name"] ?? "이름";
+                          final imgUrl = menu["imgUrl"] ?? "";
+
+                          // imgUrl 없으면 아예 위젯 생성 X
+                          if (imgUrl == null || imgUrl.isEmpty) {
+                            return const SizedBox.shrink();
+                          }
+
+                          return SizedBox(
+                            width: 128,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                CircleAvatar(
+                                  radius: 52,
+                                  // Tip : circleAvatar 배경에 맞춰서 동그랗게 이미지 넣는 방법
+                                  backgroundImage: NetworkImage(imgUrl),
+                                  backgroundColor: Colors.transparent,
+                                ),
+                                SizedBox(height: 6),
+                                Text(
+                                  name,
+                                  style: TextStyle(fontSize: 12),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+
+                    ///Event
+                    Padding(
+                      padding: EdgeInsetsGeometry.symmetric(
+                        horizontal: 10,
+                        vertical: 10,
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadiusGeometry.circular(8),
+                        child: Image.network(eventImg),
+                      ),
+                    ),
+                    SizedBox(height: 32),
+                  ],
+                ),
+              ),
             ],
+          ),
+
+          Positioned(
+            bottom: 18,
+            right: 24,
+            child: GestureDetector(
+              onTap: () {
+                print("Deliverys 선택");
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(64),
+                  color: starbucksPrimaryColor,
+                ),
+                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Deliverys",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(width: 8),
+                    Icon(
+                      Icons.pedal_bike_outlined,
+                      color: Colors.white,
+                      size: 28,
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ),
         ],
       ),
@@ -279,7 +445,24 @@ class StarbucksSecondPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: Text("Starbucks 두 번째 페이지")));
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          "Pay",
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              print("Pay 우측 상단 아이콘 클릭");
+            },
+            icon: Icon(Icons.list_rounded, color: Colors.grey),
+          ),
+        ],
+      ),
+      body: Column(),
+    );
   }
 }
 
