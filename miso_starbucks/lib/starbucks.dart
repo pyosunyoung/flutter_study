@@ -566,6 +566,96 @@ class StarbucksThirdPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: Text("Starbucks 세 번째 페이지")));
+    /// Tip : TabBar controller를 직접 TabBar에 넣어줄 수도 있고, 아래와 같이 위젯으로 감싸줄 수도 있습니다.
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text(
+            "Order",
+            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          ),
+          backgroundColor: Colors.white,
+          actions: [
+            IconButton(
+              onPressed: () {},
+              icon: Icon(Icons.search, color: Colors.grey),
+            ),
+          ],
+
+          /// Tip : AppBar 하단에 TabBar를 만들어 줍니다.
+          bottom: TabBar(
+            isScrollable: false,
+            indicatorColor: starbucksPrimaryColor, // tab 아래 밑줄 바
+            indicatorWeight: 4, // tab 아래 밑줄 바 굵기
+            labelColor: Colors.black, //선택 O
+            unselectedLabelColor: Colors.grey, //선택 X
+            labelStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            tabs: [
+              Tab(text: "전체 메뉴"),
+              Tab(text: "나만의 메뉴"),
+              Tab(text: "🎂 홀케이크"),
+            ],
+          ),
+        ),
+
+        body: TabBarView(
+          children: [
+            /// 전체 메뉴
+            ListView.builder(
+              itemCount: 100,
+              itemBuilder: (context, index) {
+                final item = menu[index % menu.length];
+                final ko = item["ko"] ?? "제목";
+                final en = item["en"] ?? "title";
+                final imgUrl = item["imgUrl"] ?? "";
+                return Padding(
+                  padding: EdgeInsetsGeometry.symmetric(
+                    horizontal: 16,
+                    vertical: 21,
+                  ),
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 52,
+                        // Tip : circleAvatar 배경에 맞춰서 동그랗게 이미지 넣는 방법,
+                        backgroundImage: NetworkImage(
+                          imgUrl,
+                        ), //Image.network하면 네모나게 나옴 => 오류
+                        backgroundColor: Colors.transparent,
+                      ),
+                      SizedBox(width: 16),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            ko,
+                            style: TextStyle(
+                              fontSize: 21,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            en,
+                            style: TextStyle(fontSize: 16, color: Colors.grey),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+
+            /// 나만의 메뉴
+            Center(child: Text("나만의 메뉴")),
+
+            /// 홀케이크 예약
+            Center(child: Text("홀케이크 예약")),
+          ],
+        ),
+      ),
+    );
   }
 }
