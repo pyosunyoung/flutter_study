@@ -27,7 +27,8 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Consumer<DiaryService>(
       builder: (context, diaryService, child) {
-        List<Diary> diaryList = diaryService.diaryList;
+        // List<Diary> diaryList = diaryService.diaryList;
+        List<Diary> diaryList = diaryService.getByDate(selectedDate); //오류 해결
         return Scaffold(
           // 키보드가 올라올 때 화면 밀지 않도록 만들기(overflow 방지)
           resizeToAvoidBottomInset: false,
@@ -79,6 +80,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                         )
                       : ListView.separated(
+                          itemCount: diaryList.length,
                           itemBuilder: (context, index) {
                             int i = diaryList.length - index - 1;
                             Diary diary = diaryList[i];
@@ -116,7 +118,6 @@ class _HomePageState extends State<HomePage> {
                             // item 사이에 Divider 추가
                             return Divider(height: 1);
                           },
-                          itemCount: diaryList.length,
                         ),
                 ),
               ],
@@ -166,6 +167,7 @@ class _HomePageState extends State<HomePage> {
           title: Text("일기 작성"),
           content: TextField(
             controller: createTextController,
+            autofocus: true,
             cursorColor: Colors.indigo,
             decoration: InputDecoration(
               hintText: "한 줄 일기를 작성해주세요.",
