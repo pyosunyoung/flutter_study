@@ -62,7 +62,7 @@ class _HomePageState extends State<HomePage> {
                       shape: BoxShape.circle,
                     ),
                   ),
-                  onDaySelected: (_, focusedDay) {
+                  onDaySelected: (_, focusedDay) { // 해당 선택 날짜 값이 들어감
                     // 날짜 선택
                     setState(() {
                       selectedDate = focusedDay;

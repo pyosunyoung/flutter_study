@@ -29,6 +29,13 @@ class Diary {
   }
 }
 
+// SharedPreferences는 저장용
+// Diary 객체는 앱에서 사용하기 위한 형태
+// 저장할 때  : Diary → Map → String
+// 불러올 때  : String → Map → Diary
+// 그래서
+// 👉 불러올 때 반드시 Diary로 변환하는 과정이 필요합니다.
+
 class DiaryService extends ChangeNotifier {
   /// 생성자
   DiaryService(this.prefs) {
